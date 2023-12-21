@@ -40,7 +40,15 @@ public class secUtil {
         }
         tickerRepository.saveAll(tickerDocuments);
     }
-    private String getCikByTicker(String ticker){
-        return cik;
+
+    public Long getCikByTicker(String ticker){
+        Long ret = null;
+        try {
+            ret = tickerRepository.findTickerByTicker(ticker).getCik();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ret;
     }
 }

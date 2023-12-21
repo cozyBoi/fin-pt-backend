@@ -12,7 +12,7 @@ public class FinPtBeApplication {
 	//TODO SEC API
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinPtBeApplication.class, args);
+		System.out.println(SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class).getCikByTicker("GOOGL"));
 	}
 
 }
