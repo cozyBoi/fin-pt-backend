@@ -18,6 +18,7 @@ import java.util.List;
 public class secUtil {
     private final String cik = "320193";
     private final TickerRepository tickerRepository;
+    private final UrlUtil urlUtil;
     public void saveTickerJsonToMongo(){
         List<Ticker> tickerDocuments = new ArrayList<>();
         try {
@@ -41,7 +42,15 @@ public class secUtil {
         tickerRepository.saveAll(tickerDocuments);
     }
 
-    public Long getCikByTicker(String ticker){
+    public String getFillingsByTicker(String ticker){
+        Long cik = getCikByTicker(ticker);
+        String cikStr = String.format("%10d", cik).replace(' ', '0');
+        String url = "https://data.sec.gov/submissions/CIK" + cikStr + ".json";
+        System.out.println(url);
+        return urlUtil.getRequest(url);
+    }
+
+    private Long getCikByTicker(String ticker){
         Long ret = null;
         try {
             ret = tickerRepository.findTickerByTicker(ticker).getCik();
