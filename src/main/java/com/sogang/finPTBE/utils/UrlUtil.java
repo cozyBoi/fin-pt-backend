@@ -21,12 +21,15 @@ public class UrlUtil {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URL(url).toURI())
-                    .headers("Content-Type", "application/json", "http.agent", "Chrome")
+//                    .headers("Content-Type", "application/json")
+                    .headers("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+                    .headers("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
                     .version(HttpClient.Version.HTTP_2)
                     .timeout(Duration.of(10, ChronoUnit.SECONDS))
                     .GET()
                     .build();
 
+            System.out.println("[log] " + request.headers());
             HttpResponse<String> response = HttpClient
                     .newBuilder()
                     .proxy(ProxySelector.getDefault())

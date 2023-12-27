@@ -12,7 +12,7 @@ public class FinPtBeApplication {
 	//TODO SEC API
 
 	public static void main(String[] args) {
-		System.out.println(SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class).getFillingsByTicker("GOOGL"));
+		System.out.println(SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class).getFillingsByTicker("AAPL"));
 	}
 
 }
