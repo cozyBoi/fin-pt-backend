@@ -16,7 +16,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class secUtil {
-    private final String cik = "320193";
     private final TickerRepository tickerRepository;
     private final UrlUtil urlUtil;
     public void saveTickerJsonToMongo(){
@@ -46,9 +45,45 @@ public class secUtil {
         Long cik = getCikByTicker(ticker);
         String cikStr = String.format("%10d", cik).replace(' ', '0');
         String url = "https://data.sec.gov/submissions/CIK" + cikStr + ".json";
-        System.out.println(url);
         return urlUtil.getRequest(url);
     }
+
+    public String getFillings(String jsonString, String ticker){
+        Long cik = getCikByTicker(ticker);
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject o1, o2, o3;
+            o1 = (JSONObject) parser.parse(jsonString);
+            o2 = (JSONObject) o1.get("filings");
+            o3 = (JSONObject) o2.get("recent");
+            JSONArray o4 = (JSONArray) o3.get("form");
+            JSONArray o5 = (JSONArray) o3.get("primaryDocument");
+            JSONArray o6 = (JSONArray) o3.get("accessionNumber");
+            String cikStr = String.format("%10d", cik).replace(' ', '0');
+            String fileName =  (String) o5.get(0);
+            String accessNumber = (String) o6.get(0);
+            for(int i = 0; i < o4.size(); i++){
+                if(o4.get(i).equals("10-K")){
+                    accessNumber = (String) o6.get(i);
+                    break;
+                }
+            }
+            System.out.println(o4);
+            System.out.println(o5);
+            System.out.println(o6);
+
+            accessNumber = accessNumber.replace("-", "");
+            String url = "https://www.sec.gov/Archives/edgar/data/" + cikStr + "/" + accessNumber + "/" + "R4.htm";
+//            String url = "https://www.sec.gov/Archives/edgar/data/1626450/000156459020043288/R4.htm";
+            System.out.println(url);
+            return urlUtil.getRequest(url);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private Long getCikByTicker(String ticker){
         Long ret = null;

@@ -12,7 +12,14 @@ public class FinPtBeApplication {
 	//TODO SEC API
 
 	public static void main(String[] args) {
-		System.out.println(SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class).getFillingsByTicker("AAPL"));
+		secUtil a = SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class);
+		String json = a.getFillingsByTicker("AAPL");
+		System.out.println(a.getFillings(json, "AAPL"));
 	}
 
 }
+
+// 투자하기 좋은 상위 10개 회사 추천
+// 시총 쓰레시 홀드에서 좋은 상위 10개 회사 (즉, 조건별 : 은행 내부 ... )
+// 어제 떨어졌는데 왜 떨어졌는지?
+// 질문 제한 (제안하는?)
