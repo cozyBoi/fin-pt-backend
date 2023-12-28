@@ -14,7 +14,11 @@ public class FinPtBeApplication {
 	public static void main(String[] args) {
 		secUtil a = SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class);
 		String json = a.getFillingsByTicker("AAPL");
-		System.out.println(a.getFillings(json, "AAPL"));
+		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R4"));
+		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R7"));
+		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R2"));
+		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R3"));
+		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R6"));
 	}
 
 }

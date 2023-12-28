@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Component;
 
-import javax.sound.midi.Soundbank;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class secUtil {
         return urlUtil.getRequest(url);
     }
 
-    public String getFillings(String jsonString, String ticker){
+    public String getFinancialStatementByTicker(String jsonString, String ticker, String type){
         Long cik = getCikByTicker(ticker);
         try {
             JSONParser parser = new JSONParser();
@@ -73,7 +72,7 @@ public class secUtil {
             System.out.println(o6);
 
             accessNumber = accessNumber.replace("-", "");
-            String url = "https://www.sec.gov/Archives/edgar/data/" + cikStr + "/" + accessNumber + "/" + "R4.htm";
+            String url = "https://www.sec.gov/Archives/edgar/data/" + cikStr + "/" + accessNumber + "/" + type + ".htm";
 //            String url = "https://www.sec.gov/Archives/edgar/data/1626450/000156459020043288/R4.htm";
             System.out.println(url);
             return urlUtil.getRequest(url);
