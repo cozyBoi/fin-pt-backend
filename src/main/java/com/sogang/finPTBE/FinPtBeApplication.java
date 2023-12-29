@@ -1,5 +1,6 @@
 package com.sogang.finPTBE;
 
+import com.sogang.finPTBE.utils.HtmlParseUtil;
 import com.sogang.finPTBE.utils.secUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,12 +14,22 @@ public class FinPtBeApplication {
 
 	public static void main(String[] args) {
 		secUtil a = SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class);
-		String json = a.getFillingsByTicker("AAPL");
-		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R4"));
-		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R7"));
-		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R2"));
-		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R3"));
-		System.out.println(a.getFinancialStatementByTicker(json, "AAPL", "R6"));
+		String json = a.getFillingsByTicker("GOOG");
+		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R4"));
+		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R7"));
+		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R2"));
+		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R3"));
+		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R6"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R4"), "pl"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R4"), "nump"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R7"), "pl"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R7"), "nump"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R2"), "pl"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R2"), "nump"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R3"), "pl"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R3"), "nump"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R6"), "pl"));
+		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R6"), "nump"));
 	}
 
 }

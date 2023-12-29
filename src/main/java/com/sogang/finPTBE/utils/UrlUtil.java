@@ -35,7 +35,7 @@ public class UrlUtil {
                     .timeout(Duration.of(10, ChronoUnit.SECONDS))
                     .GET()
                     .build();
-//            System.out.println("[log] " + request.headers());
+
             HttpResponse<String> response = HttpClient
                     .newBuilder()
                     .proxy(ProxySelector.getDefault())

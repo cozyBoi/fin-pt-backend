@@ -28,6 +28,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'org.jsoup:jsoup:1.17.2'
 }
 
 tasks.named('test') {
