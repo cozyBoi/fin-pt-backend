@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class secUtil {
         List<Ticker> tickerDocuments = new ArrayList<>();
         try {
             JSONParser parser = new JSONParser();
-            JSONObject tickerObject = (JSONObject) parser.parse(new FileReader("/home/jleetmax/spring-workspace/finPT-BE/src/main/resources/company_tickers_exchange.json"));
+            JSONObject tickerObject = (JSONObject) parser.parse(new FileReader("/Users/jlee.air/spring-workspace/fin-pt-backend/src/main/resources/company_tickers_exchange.json"));
             JSONArray tickerArray = (JSONArray) tickerObject.get("data");
             for(Object d : tickerArray){
                 JSONArray data = (JSONArray) d;
@@ -40,15 +42,36 @@ public class secUtil {
         tickerRepository.saveAll(tickerDocuments);
     }
 
-    public String getFillingsByTicker(String ticker){
+    public Map<String, String> getFinancialStatementByTicker(String ticker){
         Long cik = getCikByTicker(ticker);
+        String jsonString = getFillingsByTicker(cik);
+        List<String> typeList = List.of("R4", "R7", "R2", "R3", "R6");
+        Map<String, String> financialStatement = new HashMap<>();
+        for(String type : typeList){
+            String html = getFinancialStatementByTickerWithType(jsonString, cik, type);
+            List<String> key = HtmlParseUtil.parse(html, "pl");
+            List<String> value = HtmlParseUtil.parse(html, "nump");
+            List<String> th = HtmlParseUtil.parse(html, "th");
+            System.out.println(key.toString());
+            System.out.println(key.size());
+            System.out.println(value.toString());
+            System.out.println(value.size());
+            System.out.println(th);
+            System.out.println(th.size());
+            for(int i = 0; i < key.size(); i++){
+                financialStatement.put(key.get(i), value.get(i));
+            }
+        }
+        return financialStatement;
+    }
+
+    private String getFillingsByTicker(Long cik){
         String cikStr = String.format("%10d", cik).replace(' ', '0');
         String url = "https://data.sec.gov/submissions/CIK" + cikStr + ".json";
         return urlUtil.getRequest(url);
     }
 
-    public String getFinancialStatementByTicker(String jsonString, String ticker, String type){
-        Long cik = getCikByTicker(ticker);
+    private String getFinancialStatementByTickerWithType(String jsonString, Long cik, String type){
         try {
             JSONParser parser = new JSONParser();
             JSONObject o1, o2, o3;
@@ -70,7 +93,7 @@ public class secUtil {
 
             accessNumber = accessNumber.replace("-", "");
             String url = "https://www.sec.gov/Archives/edgar/data/" + cikStr + "/" + accessNumber + "/" + type + ".htm";
-
+            System.out.println(url);
             return urlUtil.getRequest(url);
         }
         catch (Exception e){

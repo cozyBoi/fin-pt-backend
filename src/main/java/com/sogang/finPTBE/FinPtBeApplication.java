@@ -14,24 +14,9 @@ public class FinPtBeApplication {
 
 	public static void main(String[] args) {
 		secUtil a = SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class);
-		String json = a.getFillingsByTicker("GOOG");
-		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R4"));
-		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R7"));
-		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R2"));
-		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R3"));
-		System.out.println(a.getFinancialStatementByTicker(json, "GOOG", "R6"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R4"), "pl"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R4"), "nump"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R7"), "pl"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R7"), "nump"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R2"), "pl"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R2"), "nump"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R3"), "pl"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R3"), "nump"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R6"), "pl"));
-		System.out.println(HtmlParseUtil.parse(a.getFinancialStatementByTicker(json, "GOOG", "R6"), "nump"));
+//		a.saveTickerJsonToMongo();
+		System.out.println(a.getFinancialStatementByTicker("AAPL"));
 	}
-
 }
 
 // 투자하기 좋은 상위 10개 회사 추천
