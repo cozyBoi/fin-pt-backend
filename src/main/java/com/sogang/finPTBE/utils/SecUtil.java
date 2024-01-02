@@ -1,6 +1,7 @@
 package com.sogang.finPTBE.utils;
 
 import com.sogang.finPTBE.domain.Ticker;
+import com.sogang.finPTBE.dto.response.FinancialStatementDto;
 import com.sogang.finPTBE.repository.TickerRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
@@ -10,13 +11,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class secUtil {
+public class SecUtil {
     private final TickerRepository tickerRepository;
     private final UrlUtil urlUtil;
     public void saveTickerJsonToMongo(){
@@ -42,27 +41,18 @@ public class secUtil {
         tickerRepository.saveAll(tickerDocuments);
     }
 
-    public Map<String, String> getFinancialStatementByTicker(String ticker){
+    public List<FinancialStatementDto> getFinancialStatementByTicker(String ticker){
+        List<FinancialStatementDto> financialStatementDtoList = new ArrayList<>();
         Long cik = getCikByTicker(ticker);
         String jsonString = getFillingsByTicker(cik);
         List<String> typeList = List.of("R4", "R7", "R2", "R3", "R6");
-        Map<String, String> financialStatement = new HashMap<>();
         for(String type : typeList){
             String html = getFinancialStatementByTickerWithType(jsonString, cik, type);
-            List<String> key = HtmlParseUtil.parse(html, "pl");
-            List<String> value = HtmlParseUtil.parse(html, "nump");
-            List<String> th = HtmlParseUtil.parse(html, "th");
-            System.out.println(key.toString());
-            System.out.println(key.size());
-            System.out.println(value.toString());
-            System.out.println(value.size());
-            System.out.println(th);
-            System.out.println(th.size());
-            for(int i = 0; i < key.size(); i++){
-                financialStatement.put(key.get(i), value.get(i));
-            }
+            FinancialStatementDto financialStatementDto = HtmlParseUtil.parseTable(html);
+            financialStatementDto.setTicker(ticker);
+            financialStatementDtoList.add(financialStatementDto);
         }
-        return financialStatement;
+        return financialStatementDtoList;
     }
 
     private String getFillingsByTicker(Long cik){

@@ -1,7 +1,5 @@
 package com.sogang.finPTBE;
 
-import com.sogang.finPTBE.utils.HtmlParseUtil;
-import com.sogang.finPTBE.utils.secUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -10,12 +8,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.sogang.finPTBE.repository",
 		mongoTemplateRef = "studioMongoTemplate")
 public class FinPtBeApplication {
-	//TODO SEC API
-
 	public static void main(String[] args) {
-		secUtil a = SpringApplication.run(FinPtBeApplication.class, args).getBean(secUtil.class);
-//		a.saveTickerJsonToMongo();
-		System.out.println(a.getFinancialStatementByTicker("AAPL"));
+		SpringApplication.run(FinPtBeApplication.class, args);
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.sogang.finPTBE.utils;
 
-import com.sogang.finPTBE.dto.FinancialStatementDto;
+import com.sogang.finPTBE.dto.response.FinancialStatementDto;
+import com.sogang.finPTBE.dto.response.SubFinancialStatementDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,36 +15,40 @@ import java.util.Map;
 public class HtmlParseUtil {
     public static List<String> parse(String html, String className){
         Document document = Jsoup.parseBodyFragment(html);
-        parseTable(document);
         Element body = document.body();
         return body.getElementsByClass(className).eachText();
     }
 
-    private static List<FinancialStatementDto> parseTable(Document document){
-        List<FinancialStatementDto> dtos = new ArrayList<>();
-        Elements rowsName = document.select("th");
-        Elements rows = document.select("tr");
+    public static FinancialStatementDto parseTable(String html){
+        Document document = Jsoup.parseBodyFragment(html);
+        Element body = document.selectFirst("tbody");
+        List<SubFinancialStatementDto> dtos = new ArrayList<>();
+        Elements rowsName = body.select("th");
+        Elements rows = body.select("tr");
         for(Element row : rows){
             Elements cols = row.select("td");
             Map<String, String> typeToValueMap = new HashMap<>();
+            String statement = row.getElementsByClass("pl").text();
+            statement = statement.isEmpty() ? row.getElementsByClass("pl custom").text() : statement;
             for(int i = 0; i < rowsName.size(); i++){
-                String colData;
+                String colData, rowData = rowsName.get(i).text();
                 try {
                     colData = cols.get(i).text();
                 }
                 catch (Exception e){
                     colData = "";
                 }
-                typeToValueMap.put(rowsName.get(i).text(), colData);
+                if(colData.equals(statement)) continue;
+                typeToValueMap.put(rowData, colData);
             }
-            FinancialStatementDto dto = FinancialStatementDto.builder()
-                    .statement(row.text())
+            SubFinancialStatementDto dto = SubFinancialStatementDto.builder()
+                    .statement(statement)
                     .typeToValue(typeToValueMap)
                     .build();
-            System.out.println(dto);
             dtos.add(dto);
-            System.out.println("+++++++++++");
         }
-        return dtos;
+        return FinancialStatementDto.builder()
+                .FinancialStatements(dtos)
+                .build();
     }
 }
