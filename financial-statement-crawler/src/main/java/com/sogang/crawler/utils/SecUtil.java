@@ -1,8 +1,8 @@
-package com.sogang.finPTBE.utils;
+package com.sogang.crawler.utils;
 
-import com.sogang.finPTBE.domain.Ticker;
-import com.sogang.finPTBE.dto.response.FinancialStatementDto;
-import com.sogang.finPTBE.repository.TickerRepository;
+import com.sogang.crawler.domain.Ticker;
+import com.sogang.crawler.dto.response.FinancialStatementDto;
+import com.sogang.crawler.repository.TickerRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

@@ -1,8 +1,8 @@
-package com.sogang.finPTBE.controller;
+package com.sogang.crawler.controller;
 
-import com.sogang.finPTBE.dto.request.TickerDto;
-import com.sogang.finPTBE.dto.response.FinancialStatementDto;
-import com.sogang.finPTBE.utils.SecUtil;
+import com.sogang.crawler.dto.request.TickerDto;
+import com.sogang.crawler.dto.response.FinancialStatementDto;
+import com.sogang.crawler.utils.SecUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

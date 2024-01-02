@@ -1,4 +1,4 @@
-package com.sogang.finPTBE.dto.request;
+package com.sogang.crawler.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

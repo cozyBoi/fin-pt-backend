@@ -1,4 +1,4 @@
-package com.sogang.finPTBE.dto.response;
+package com.sogang.crawler.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

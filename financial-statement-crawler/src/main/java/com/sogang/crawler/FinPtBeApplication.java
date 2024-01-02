@@ -1,11 +1,11 @@
-package com.sogang.finPTBE;
+package com.sogang.crawler;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackages = "com.sogang.finPTBE.repository",
+@EnableMongoRepositories(basePackages = "com.sogang.crawler.repository",
 		mongoTemplateRef = "studioMongoTemplate")
 public class FinPtBeApplication {
 	public static void main(String[] args) {

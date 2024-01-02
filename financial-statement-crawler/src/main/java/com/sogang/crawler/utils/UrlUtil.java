@@ -1,13 +1,8 @@
-package com.sogang.finPTBE.utils;
+package com.sogang.crawler.utils;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.ProxySelector;
 import java.net.URISyntaxException;
 import java.net.URL;

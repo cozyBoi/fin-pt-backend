@@ -1,9 +1,8 @@
-package com.sogang.finPTBE.domain;
+package com.sogang.crawler.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Builder

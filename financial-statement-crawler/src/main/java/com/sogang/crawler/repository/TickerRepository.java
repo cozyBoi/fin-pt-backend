@@ -1,9 +1,7 @@
-package com.sogang.finPTBE.repository;
+package com.sogang.crawler.repository;
 
-import com.sogang.finPTBE.domain.Ticker;
+import com.sogang.crawler.domain.Ticker;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
-import java.util.Optional;
 
 public interface TickerRepository extends MongoRepository<Ticker, String> {
     Ticker findTickerByTicker(String ticker);

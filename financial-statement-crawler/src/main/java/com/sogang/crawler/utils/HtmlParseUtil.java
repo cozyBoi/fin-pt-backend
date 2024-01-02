@@ -1,7 +1,7 @@
-package com.sogang.finPTBE.utils;
+package com.sogang.crawler.utils;
 
-import com.sogang.finPTBE.dto.response.FinancialStatementDto;
-import com.sogang.finPTBE.dto.response.SubFinancialStatementDto;
+import com.sogang.crawler.dto.response.FinancialStatementDto;
+import com.sogang.crawler.dto.response.SubFinancialStatementDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

@@ -1,4 +1,4 @@
-package com.sogang.finPTBE.config;
+package com.sogang.crawler.config;
 
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
